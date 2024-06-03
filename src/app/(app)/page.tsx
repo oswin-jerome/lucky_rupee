@@ -11,10 +11,10 @@ export default async function Home() {
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Find Your Lucky Rupee</h1>
           <p className="text-lg md:text-2xl mb-8">Search and collect rupee notes with unique and auspicious serial numbers.</p>
-          <div className="max-w-md mx-auto">
-            <input type="text" placeholder="Enter Serial Number" className="w-full p-3 text-gray-800 rounded-lg focus:outline-none" />
+          <form action={"/search"} className="max-w-md mx-auto">
+            <input name="serialNumber" type="text" placeholder="Enter Serial Number" className="w-full p-3 text-gray-800 rounded-lg focus:outline-none" />
             <button className="mt-4 w-full p-3 bg-blue-500 hover:bg-blue-600 rounded-lg">Search</button>
-          </div>
+          </form>
         </div>
       </div>{" "}
       <div className="bg-white py-20">

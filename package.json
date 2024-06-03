@@ -13,6 +13,7 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/themes": "^3.0.5",
     "appwrite": "^15.0.0",
+    "lodash": "^4.17.21",
     "next": "14.2.3",
     "node-appwrite": "^13.0.0",
     "react": "^18",
@@ -22,6 +23,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
