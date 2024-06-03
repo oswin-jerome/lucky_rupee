@@ -1,0 +1,21 @@
+{
+  "projectId": "665b2973001d383b3e15",
+  "projectName": "LuckyRupee",
+  "functions": [
+    {
+      "$id": "665b09e5745584a0fd7b",
+      "name": "Add user to DB",
+      "runtime": "node-16.0",
+      "execute": [],
+      "events": ["users.*.create"],
+      "schedule": "",
+      "timeout": 15,
+      "enabled": true,
+      "logging": true,
+      "entrypoint": "src/main.js",
+      "commands": "npm install",
+      "ignore": ["node_modules", ".npm"],
+      "path": "functions/Add user to DB"
+    }
+  ]
+}

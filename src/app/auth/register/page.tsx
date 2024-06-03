@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "@/validation/schema";
 import { InferType } from "yup";
 import ErrorMessage from "@/components/ErrorMessage";
-import { account } from "@/utils/appWrite";
+import { DB_ID, account, database } from "@/utils/appWrite";
 import { ID } from "appwrite";
 import { useRouter } from "next/navigation";
 type Register = InferType<typeof registerSchema>;
@@ -46,6 +46,7 @@ function RegisterPage() {
         <form
           onSubmit={handleSubmit(async (data) => {
             const da = await account.create(ID.unique(), data.email, data.password, data.name);
+
             router.push("/auth/login");
           })}
           className="grid gap-4 mt-8 "
