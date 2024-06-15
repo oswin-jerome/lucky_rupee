@@ -2,6 +2,7 @@ import { createSessionClient } from "@/actions/appwrite";
 import { DB_ID, account, database, serverAccount, storage } from "@/utils/appWrite";
 import { Button } from "@radix-ui/themes";
 import { Models, Query } from "appwrite";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 const getUser = async () => {
   const { account } = await createSessionClient();
@@ -28,9 +29,16 @@ const ProfilePage = async () => {
         <div>
           <h3 className="font-bold text-xl">{user.name}</h3>
           <p className="opacity-70">{user.email}</p>
-          <Button className="mt-4 cursor-pointer" color="red">
-            Change Password
-          </Button>
+          <div className="space-x-4">
+            <Button className="mt-4 cursor-pointer" color="red">
+              Change Password
+            </Button>
+            <Link href={"/my-rupees/create"}>
+              <Button className="mt-4 cursor-pointer" color="blue">
+                Add Rupee
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
       <section className="mt-10">

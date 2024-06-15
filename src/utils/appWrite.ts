@@ -12,6 +12,7 @@ const sdk = require("node-appwrite");
 
 export const serverSdk = new sdk.Client();
 export const serverAccount = new sdk.Account(client);
+export const serverDatabase = new sdk.Databases(client);
 export const storage = new Storage(client);
 serverSdk
   .setEndpoint("https://appwrite.oswinjerome.in/v1") // Your API Endpoint

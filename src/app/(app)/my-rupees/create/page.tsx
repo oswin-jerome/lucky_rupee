@@ -1,5 +1,6 @@
 // UploadRupeePage.jsx
 "use client";
+import { createRupee } from "@/actions/rupees";
 import { DB_ID, account, database, storage } from "@/utils/appWrite";
 import { Button, Heading, Text, TextField } from "@radix-ui/themes";
 import { ID } from "appwrite";
@@ -22,13 +23,26 @@ const UploadRupeePage = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const user = await account.get();
+    // const user = await account.get();
     const res = await storage.createFile("rupees", ID.unique(), image as File);
-    const rupee = await database.createDocument(DB_ID, "rupees", ID.unique(), {
+    // const rupee = await database.createDocument(DB_ID, "rupees", ID.unique(), {
+    //   serialNumber,
+    //   image_id: res.$id,
+    //   users: user.$id,
+    // });
+    createRupee({
+      image: res.$id,
       serialNumber,
-      image_id: res.$id,
-      users: user.$id,
     });
+  };
+
+  /**
+   *
+   * @param serial
+   * @returns {boolean}
+   */
+  const isSerialHasDate = (serial: string) => {
+    return false;
   };
 
   return (
@@ -68,6 +82,7 @@ const UploadRupeePage = () => {
           <Button>Add</Button>
         </div>
       </form>
+      <div>{isSerialHasDate(serialNumber) && <p>This serial number represents a Date</p>}</div>
     </div>
   );
 };
