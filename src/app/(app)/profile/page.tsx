@@ -19,7 +19,7 @@ const getRupees = async (user: any) => {
 };
 const ProfilePage = async () => {
   const user = await getUser();
-
+  const rupees = await getRupees(user);
   return (
     <div className="container mx-auto py-8 ">
       {/* {JSON.stringify(user)} */}
@@ -35,7 +35,7 @@ const ProfilePage = async () => {
       </div>
       <section className="mt-10">
         <h3 className="font-bold text-3xl">My Rupees</h3>
-        {/* <div className="gap-4 grid grid-cols-4 mt-4">
+        <div className="gap-4 grid grid-cols-4 mt-4">
           {rupees?.documents?.map((rupee) => {
             return (
               <div key={rupee.$id} className="border p-4">
@@ -47,7 +47,7 @@ const ProfilePage = async () => {
               </div>
             );
           })}
-        </div> */}
+        </div>
       </section>
     </div>
   );

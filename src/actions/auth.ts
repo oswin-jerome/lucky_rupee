@@ -2,7 +2,7 @@
 
 import { account } from "@/utils/appWrite";
 import { cookies } from "next/headers";
-import { createAdminClient } from "./appwrite";
+import { createAdminClient, createSessionClient } from "./appwrite";
 import { ID } from "appwrite";
 import { redirect } from "next/navigation";
 
@@ -12,14 +12,18 @@ export const login = async (data: any) => {
   return session;
 };
 
-export const loginWithSession = (session: string) => {
-  console.log(session);
-  cookies().set("my-custom-session", session, {
+export const loginWithSession = async ({ email, password }: { email: string; password: string }) => {
+  const { account } = await createAdminClient();
+  const session = await account.createEmailPasswordSession(email, password);
+
+  cookies().set("my-custom-session", session.secret, {
     path: "/",
     httpOnly: true,
     sameSite: "strict",
     secure: true,
   });
+
+  redirect("/");
 };
 
 export const signUpWithEmail = async ({ email, password, name }: { email: string; password: string; name: string }) => {
@@ -37,5 +41,14 @@ export const signUpWithEmail = async ({ email, password, name }: { email: string
     secure: true,
   });
 
-  redirect("/login");
+  redirect("/");
+};
+
+export const logout = async () => {
+  const { account } = await createSessionClient();
+
+  cookies().delete("my-custom-session");
+  await account.deleteSession("current");
+
+  redirect("/auth/login");
 };

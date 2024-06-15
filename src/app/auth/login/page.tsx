@@ -30,20 +30,6 @@ export default function LoginPage() {
     resolver: yupResolver(loginSchema),
   });
 
-  useEffect(() => {
-    checkUser();
-  }, []);
-
-  const checkUser = async () => {
-    try {
-      const user = await account.get();
-      if (user) {
-        console.log(user);
-        router.back();
-      }
-    } catch (e) {}
-  };
-
   return (
     <div className="grid grid-cols-[3fr,2fr] h-screen">
       <div className="bg-slate-500">s</div>
@@ -69,11 +55,7 @@ export default function LoginPage() {
         <form
           onSubmit={handleSubmit(async (data) => {
             try {
-              const { account } = await createAdminClient();
-              const session = await account.createEmailPasswordSession(data.email, data.password);
-              console.log(session);
-              loginWithSession(session.secret);
-              router.push("/");
+              await loginWithSession(data);
             } catch (e: AppwriteException | any) {
               setError("root", {
                 message: e.message,

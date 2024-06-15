@@ -6,6 +6,7 @@ import React from "react";
 import * as Popover from "@radix-ui/react-popover";
 import { FaUserCircle, FaBars, FaSignOutAlt } from "react-icons/fa";
 import Link from "next/link";
+import { logout } from "@/actions/auth";
 
 const NavBar = () => {
   const [user, setUser] = useState<any>(null);
@@ -48,7 +49,7 @@ const NavBar = () => {
           <button
             className="p-2 text-white rounded-lg flex items-center justify-center"
             onClick={() => {
-              account.deleteSession("current");
+              logout();
             }}
           >
             <FaSignOutAlt className="mr-2" />
