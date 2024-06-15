@@ -1,5 +1,6 @@
 "use client";
-import { login } from "@/actions/auth";
+import { createAdminClient } from "@/actions/appwrite";
+import { login, loginWithSession } from "@/actions/auth";
 import ErrorMessage from "@/components/ErrorMessage";
 import { account } from "@/utils/appWrite";
 import { loginSchema, registerSchema } from "@/validation/schema";
@@ -68,8 +69,10 @@ export default function LoginPage() {
         <form
           onSubmit={handleSubmit(async (data) => {
             try {
+              const { account } = await createAdminClient();
               const session = await account.createEmailPasswordSession(data.email, data.password);
-
+              console.log(session);
+              loginWithSession(session.secret);
               router.push("/");
             } catch (e: AppwriteException | any) {
               setError("root", {

@@ -11,6 +11,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { DB_ID, account, database } from "@/utils/appWrite";
 import { ID } from "appwrite";
 import { useRouter } from "next/navigation";
+import { signUpWithEmail } from "@/actions/auth";
 type Register = InferType<typeof registerSchema>;
 function RegisterPage() {
   const router = useRouter();
@@ -45,9 +46,7 @@ function RegisterPage() {
         <div className="bg-slate-200 mt-2 h-[2px]"></div>
         <form
           onSubmit={handleSubmit(async (data) => {
-            const da = await account.create(ID.unique(), data.email, data.password, data.name);
-
-            router.push("/auth/login");
+            signUpWithEmail(data);
           })}
           className="grid gap-4 mt-8 "
         >

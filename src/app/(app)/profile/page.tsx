@@ -1,33 +1,24 @@
-"use client";
-import { DB_ID, account, database, storage } from "@/utils/appWrite";
+import { createSessionClient } from "@/actions/appwrite";
+import { DB_ID, account, database, serverAccount, storage } from "@/utils/appWrite";
 import { Button } from "@radix-ui/themes";
 import { Models, Query } from "appwrite";
 import React, { useEffect, useState } from "react";
-
-const ProfilePage = () => {
-  const [user, setUser] = useState<any>({});
-  const [rupees, setRupees] = useState<Models.DocumentList<Models.Document>>();
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  useEffect(() => {
-    getRupees(user);
-  }, [user]);
-
-  const getUser = async () => {
-    const user = await account.get();
-    setUser(user);
-  };
-  const getRupees = async (user: any) => {
-    if (user.$id == undefined) {
-      return;
-    }
-    // console.log(user.$id);
-    const rupees = await database.listDocuments(DB_ID, "rupees", [Query.equal("users", user.$id)]);
-    // console.log(rupees);
-    setRupees(rupees);
-  };
+const getUser = async () => {
+  const { account } = await createSessionClient();
+  const user = await account.get();
+  return user;
+};
+const getRupees = async (user: any) => {
+  if (user.$id == undefined) {
+    return;
+  }
+  // console.log(user.$id);
+  const rupees = await database.listDocuments(DB_ID, "rupees", [Query.equal("users", user.$id)]);
+  // console.log(rupees);
+  return rupees;
+};
+const ProfilePage = async () => {
+  const user = await getUser();
 
   return (
     <div className="container mx-auto py-8 ">
@@ -44,7 +35,7 @@ const ProfilePage = () => {
       </div>
       <section className="mt-10">
         <h3 className="font-bold text-3xl">My Rupees</h3>
-        <div className="gap-4 grid grid-cols-4 mt-4">
+        {/* <div className="gap-4 grid grid-cols-4 mt-4">
           {rupees?.documents?.map((rupee) => {
             return (
               <div key={rupee.$id} className="border p-4">
@@ -56,7 +47,7 @@ const ProfilePage = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </section>
     </div>
   );
